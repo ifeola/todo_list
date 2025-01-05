@@ -83,7 +83,7 @@ h3::after {
 	inline-size: min(100%, 480px);
 	block-size: 2.5rem;
 	padding-inline: 0.5rem;
-	border-radius: 8px;
+	border-radius: 6px;
 	background-color: hsla(221, 100%, 94%, 0.119);
 	border: 1px solid hsla(221, 100%, 94%, 0.24);
 }
@@ -104,7 +104,7 @@ h3::after {
 	justify-content: space-between;
 	min-block-size: 4rem;
 	padding-inline: 1rem;
-	border-radius: 8px;
+	border-radius: 6px;
 	background-color: hsla(221, 100%, 94%, 0.119);
 }
 
@@ -148,4 +148,68 @@ h3::after {
 	color: #ffffff;
 	font-size: 1rem;
 	cursor: pointer;
+}
+
+.add__todo {
+	inline-size: 100%;
+}
+
+.add__todo-btn {
+	inline-size: 3rem;
+	block-size: 3rem;
+	display: grid;
+	place-content: center;
+	border: 0;
+	border-radius: 50%;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem;
+}
+
+.add__todo-btn svg {
+	inline-size: 100%;
+	block-size: 100%;
+	fill: #ffffff7a;
+}
+
+.add__todo-btn #add__todo-icon {
+	fill: #1057ff;
+}
+
+#todo__form {
+	display: grid;
+	gap: 0.5rem;
+	inline-size: min(100%, 480px);
+}
+
+#todo__form input {
+	inline-size: 100%;
+	block-size: 2.5rem;
+	padding-inline: 0.5rem;
+	border: 1px solid hsla(221, 100%, 94%, 0.24);
+	outline: none;
+	border-radius: 6px;
+	background-color: hsla(221, 100%, 94%, 0.119);
+	color: #ffffff;
+	font-size: 1rem;
+}
+
+#todo__form input:focus {
+	border-color: hsla(221, 100%, 94%, 0.582);
+}
+
+#todo__form button {
+	inline-size: 100%;
+	block-size: 2.5rem;
+	border-radius: 6px;
+	background-color: #1057ff;
+	border: none;
+	outline: none;
+	font-size: 1rem;
+	color: #ffffff;
+	font-weight: 500;
 }
