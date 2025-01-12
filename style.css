@@ -12,6 +12,7 @@ body {
 		Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 	font-weight: 400;
 	inline-size: 100%;
+	block-size: 100vh;
 	line-height: 1.6;
 }
 
@@ -26,8 +27,6 @@ svg {
 	block-size: 100%;
 	margin: 0 auto;
 	padding: 1rem;
-	display: grid;
-	place-items: center;
 }
 
 .todo__bg {
@@ -39,6 +38,10 @@ svg {
 
 ul {
 	list-style: none;
+}
+
+h1 {
+	text-align: center;
 }
 
 h1,
@@ -79,6 +82,7 @@ h3::after {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
+	margin-inline: auto;
 	margin-block: 1rem;
 	inline-size: min(100%, 480px);
 	block-size: 2.5rem;
@@ -150,8 +154,27 @@ h3::after {
 	cursor: pointer;
 }
 
-.add__todo {
+.add__todo-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
 	inline-size: 100%;
+	block-size: 100vh;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	background-color: hsla(218, 20%, 8%, 0.72);
+}
+
+.add__todo-bg.active {
+	display: flex;
+}
+
+.add__todo h4 {
+	font-size: 1.25rem;
+	font-weight: 500;
+	margin-block: 0.25rem;
 }
 
 .add__todo-btn {
@@ -180,10 +203,18 @@ h3::after {
 	fill: #1057ff;
 }
 
+.add__todo {
+	inline-size: min(100%, 480px);
+	background-color: hsl(222, 28%, 7%);
+	border: 1px solid hsla(221, 100%, 94%, 0.24);
+	border-radius: 8px;
+	padding: 2rem;
+}
+
 #todo__form {
 	display: grid;
 	gap: 0.5rem;
-	inline-size: min(100%, 480px);
+	inline-size: 100%;
 }
 
 #todo__form input {
@@ -212,4 +243,5 @@ h3::after {
 	font-size: 1rem;
 	color: #ffffff;
 	font-weight: 500;
+	cursor: pointer;
 }
