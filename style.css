@@ -65,6 +65,10 @@ h3::after {
 	margin-block-start: 0.125rem;
 }
 
+h4 {
+	transition: all 0.3s ease-in-out;
+}
+
 .ongoing__todos h3::after {
 	background-color: hsl(123, 100%, 35%);
 }
@@ -110,6 +114,11 @@ h3::after {
 	padding-inline: 1rem;
 	border-radius: 6px;
 	background-color: hsla(221, 100%, 94%, 0.119);
+}
+
+.completed-todo {
+	text-decoration: line-through;
+	color: hsl(0, 0%, 27%);
 }
 
 .todo input[type="checkbox"] {

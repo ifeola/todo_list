@@ -7,8 +7,6 @@ const todoForm = document.querySelector("#todo__form");
 const addTodoBtn = document.querySelector(".add__todo-btn");
 const todoModal = document.querySelector(".add__todo-bg");
 
-console.log(ongoingTodos);
-
 // Toggle Add Todo Form
 addTodoBtn.addEventListener("click", () => {
 	todoModal.classList.toggle("active");
@@ -18,25 +16,25 @@ addTodoBtn.addEventListener("click", () => {
 todoForm.addEventListener("submit", (e) => {
 	e.preventDefault();
 	let todoInputValue = todoInput.value;
-	Todos(todoInputValue);
+	addTodo(todoInputValue);
 });
 
 // Todo List
-function Todos(todo) {
+function todos(todo) {
 	const todos = [];
 	todos.push(todo);
-	addTodo(todos);
+	ongoingTodos.appendChild(todo);
 }
 
+// document.addEventListener("DOMContentLoaded", )
+
 // Add Todo to List
-function addTodo(todos) {
-	if (todos.length > 0) {
-		todos.forEach((todo, index) => {
-			let todoListItem = document.createElement("li");
-			todoListItem.classList.add("todo");
-			todoListItem.innerHTML = `
+function addTodo(todo) {
+	let todoListItem = document.createElement("li");
+	todoListItem.classList.add("todo");
+	todoListItem.innerHTML = `
 				<label class="todo__content">
-					<input type="checkbox" />
+					<input type="checkbox" class="checkbox" />
 					<svg
 						width="24"
 						height="24"
@@ -49,7 +47,7 @@ function addTodo(todos) {
 							class="checked"
 							d="M10.5799 15.58C10.3799 15.58 10.1899 15.5 10.0499 15.36L7.21994 12.53C6.92994 12.24 6.92994 11.76 7.21994 11.47C7.50994 11.18 7.98994 11.18 8.27994 11.47L10.5799 13.77L15.7199 8.62998C16.0099 8.33998 16.4899 8.33998 16.7799 8.62998C17.0699 8.91998 17.0699 9.39998 16.7799 9.68998L11.1099 15.36C10.9699 15.5 10.7799 15.58 10.5799 15.58Z" />
 					</svg>
-					<h4>${todo}</h4>
+					<h4 class="todo__title">${todo}</h4>
 				</label>
 				<div class="btns">
 					<button class="btn delete__btn">
@@ -90,12 +88,8 @@ function addTodo(todos) {
 					</button>
 				</div>
 		`;
-			ongoingTodos.appendChild(todoListItem);
-			clearInputField();
-		});
-	} else {
-		throw new Error("Todo is empty");
-	}
+	todos(todoListItem);
+	clearInputField();
 }
 
 // Clear Input field after submitting
@@ -104,4 +98,35 @@ function clearInputField() {
 	todoModal.classList.remove("active");
 }
 
-addTodo();
+// Check done To-dos
+function checkedTodos(todo) {
+	let completedTodosArray = [];
+	completedTodosArray.push(todo);
+	completedTodos.appendChild(todo);
+}
+
+// Add to completed todos
+ongoingTodos.addEventListener("click", (e) => {
+	if (e.target.classList.contains("checkbox")) {
+		const checkbox = e.target;
+		const todo = e.target.parentElement.parentElement;
+		const todoTitle = todo.querySelector(".todo__title");
+		if (checkbox.checked == true) {
+			todoTitle.classList.add("completed-todo");
+			checkedTodos(todo);
+		}
+	}
+});
+
+// Add to ongoing Todos
+completedTodos.addEventListener("click", (e) => {
+	if (e.target.classList.contains("checkbox")) {
+		const checkbox = e.target;
+		const todo = e.target.parentElement.parentElement;
+		const todoTitle = todo.querySelector(".todo__title");
+		if (checkbox.checked == false) {
+			todoTitle.classList.remove("completed-todo");
+			todos(todo);
+		}
+	}
+});
