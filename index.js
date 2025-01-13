@@ -32,6 +32,8 @@ function todos(todo) {
 function addTodo(todo) {
 	let todoListItem = document.createElement("li");
 	todoListItem.classList.add("todo");
+	const date = new Date();
+	todoListItem.setAttribute("id", date.getTime());
 	todoListItem.innerHTML = `
 				<label class="todo__content">
 					<input type="checkbox" class="checkbox" />
