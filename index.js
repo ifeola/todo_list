@@ -145,7 +145,8 @@ function clearInputField() {
 // Check done To-dos
 function checkedTodos() {
 	let todos = getTodoList();
-	todos.forEach((todo) => {
+
+	/* todos.forEach((todo) => {
 		if (todo.status === "completed") {
 			let todoListItem = document.createElement("li");
 			todoListItem.classList.add("todo");
@@ -209,7 +210,7 @@ function checkedTodos() {
 		`;
 			completedTodos.appendChild(todoListItem);
 		}
-	});
+	}); */
 }
 
 // Add to completed todos
