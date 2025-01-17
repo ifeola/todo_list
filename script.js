@@ -172,6 +172,33 @@ class UI {
 			}
 		}
 	}
+
+	static removeTodoFromOngoing(id) {
+		const todos = Store.getTodoList();
+
+		for (let index = 0; index < todos.ongoing.length; index++) {
+			let todo = todos.ongoing[index];
+			if (todo.id == id) {
+				todos.ongoing.splice(index, 1);
+			}
+		}
+
+		localStorage.setItem("todos", JSON.stringify(todos));
+	}
+
+	static removeTodoFromCompleted(id) {
+		const todos = Store.getTodoList();
+
+		for (let index = 0; index < todos.completed.length; index++) {
+			let todo = todos.completed[index];
+
+			if (todo.id == id) {
+				todos.completed.splice(index, 1);
+			}
+		}
+
+		localStorage.setItem("todos", JSON.stringify(todos));
+	}
 }
 
 class Store {
@@ -227,9 +254,9 @@ todoForm.addEventListener("submit", (e) => {
 
 // Checking a todo completed
 ongoingTodos.addEventListener("click", (e) => {
-	const input = e.target;
-	if (input.classList.contains("checkbox")) {
-		const todoEl = input.parentElement.parentElement;
+	const targetElement = e.target;
+	if (targetElement.classList.contains("checkbox")) {
+		const todoEl = targetElement.parentElement.parentElement;
 		const checkbox = todoEl.querySelector(".checkbox");
 
 		// check checkbox
@@ -247,6 +274,12 @@ ongoingTodos.addEventListener("click", (e) => {
 				}
 			}
 		}
+	}
+
+	if (targetElement.classList.contains("delete__btn")) {
+		const todo = targetElement.parentElement.parentElement;
+		UI.removeTodoFromOngoing(todo.id);
+		todo.remove();
 	}
 });
 
@@ -271,9 +304,10 @@ completedTodos.addEventListener("click", (e) => {
 			}
 		}
 	}
-});
 
-// To add todo to completed
-// 1. clicking on the checkbox changes the statuc from ongoing to completed
-// 2. removing the todo from ongoing and adding to completed
-// 3. displaying the todo in UI
+	if (targetElement.classList.contains("delete__btn")) {
+		const todo = targetElement.parentElement.parentElement;
+		UI.removeTodoFromCompleted(todo.id);
+		todo.remove();
+	}
+});
