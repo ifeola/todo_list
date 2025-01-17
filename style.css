@@ -116,11 +116,6 @@ h4 {
 	background-color: hsla(221, 100%, 94%, 0.119);
 }
 
-.completed-todo {
-	text-decoration: line-through;
-	color: hsl(0, 0%, 27%);
-}
-
 .todo input[type="checkbox"] {
 	appearance: none;
 }
@@ -137,6 +132,11 @@ h4 {
 
 .todo input[type="checkbox"]:checked ~ svg .checked {
 	opacity: 1;
+}
+
+.completed-todo {
+	text-decoration: line-through;
+	color: hsl(0, 0%, 27%);
 }
 
 .todo__content {

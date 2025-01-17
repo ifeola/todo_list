@@ -132,6 +132,7 @@ function createTodoObject(todo) {
 		id: date.getTime(),
 		status: "ongoing",
 	};
+	
 	addTodoToLocalStorage(todoObj);
 	clearInputField();
 }

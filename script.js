@@ -6,8 +6,6 @@ const addTodoBtn = document.querySelector(".add__todo-btn");
 const todoModal = document.querySelector(".add__todo-bg");
 
 // create Todo object
-//
-
 class Todo {
 	constructor(title, id, status) {
 		this.title = title;
@@ -83,12 +81,12 @@ class UI {
 
 	static addTodoToCompleted(todo) {
 		const todoElement = document.createElement("li");
-		todoElement.classList.add("todo");
+		todoElement.className = "todo completed-todo";
 		todoElement.setAttribute("id", todo.id);
 		todoElement.setAttribute("aria-label", todo.status);
 		todoElement.innerHTML = `
 				<label class="todo__content">
-					<input type="checkbox" class="checkbox" />
+					<input type="checkbox" class="checkbox" checked />
 					<svg
 						width="24"
 						height="24"
@@ -142,7 +140,7 @@ class UI {
 					</button>
 				</div>
 		`;
-		ongoingTodos.appendChild(todoElement);
+		completedTodos.appendChild(todoElement);
 	}
 
 	static getTodo() {
@@ -150,6 +148,29 @@ class UI {
 		todos.ongoing.forEach((todo) => {
 			UI.addTodoToOngoing(todo);
 		});
+		todos.completed.forEach((todo) => {
+			UI.addTodoToCompleted(todo);
+		});
+	}
+
+	static removeCheckedTodo(todo) {
+		const todos = ongoingTodos.querySelectorAll(".todo");
+		for (let i = 0; i < todos.length; i++) {
+			let todoEl = todos[i];
+			if (todoEl.id == todo.id) {
+				todoEl.remove();
+			}
+		}
+	}
+
+	static removeUncheckedTodo(todo) {
+		const todos = completedTodos.querySelectorAll(".todo");
+		for (let i = 0; i < todos.length; i++) {
+			let todoEl = todos[i];
+			if (todoEl.id == todo.id) {
+				todoEl.remove();
+			}
+		}
 	}
 }
 
@@ -162,7 +183,7 @@ class Store {
 		return todos;
 	}
 
-	static storeTodo(todo) {
+	static storeTodoToOngoing(todo) {
 		let todos = Store.getTodoList();
 
 		let updateTodos = { ...todos, ongoing: [...todos.ongoing, todo] };
@@ -170,11 +191,13 @@ class Store {
 		localStorage.setItem("todos", JSON.stringify(updateTodos));
 	}
 
-	static addTodo() {
-		const todos = Store.getTodoList();
-		todos.forEach((todo) => {
-			UI.addTodoToOngoing(todo);
-		});
+	static storeTodoToCompleted(todo, todosArray) {
+		let todos = todosArray;
+		let updatedTodos = {
+			...todos,
+			completed: [...todos.completed, todo],
+		};
+		localStorage.setItem("todos", JSON.stringify(updatedTodos));
 	}
 }
 
@@ -192,14 +215,62 @@ todoForm.addEventListener("submit", (e) => {
 		let todoInputValue = todoInput.value;
 		let id = new Date().getTime();
 		const todo = new Todo(todoInputValue, id, "ongoing");
+		Store.storeTodoToOngoing(todo);
 		UI.addTodoToOngoing(todo);
-		Store.storeTodo(todo);
 
 		// clear input field after submiting
 		todoInput.value = "";
 	}
 
 	todoModal.classList.remove("active");
+});
+
+// Checking a todo completed
+ongoingTodos.addEventListener("click", (e) => {
+	const input = e.target;
+	if (input.classList.contains("checkbox")) {
+		const todoEl = input.parentElement.parentElement;
+		const checkbox = todoEl.querySelector(".checkbox");
+
+		// check checkbox
+		if (checkbox.checked == true) {
+			let todos = Store.getTodoList();
+			for (let index = 0; index < todos.ongoing.length; index++) {
+				const todo = todos.ongoing[index];
+				if (todo.id == todoEl.id) {
+					let todoItem = todos.ongoing.splice(index, 1)[0];
+					todoItem.status = "completed";
+					UI.removeCheckedTodo(todoItem);
+					UI.addTodoToCompleted(todoItem);
+					Store.storeTodoToCompleted(todoItem, todos);
+					break;
+				}
+			}
+		}
+	}
+});
+
+completedTodos.addEventListener("click", (e) => {
+	const targetElement = e.target;
+	const todos = Store.getTodoList();
+	if (targetElement.classList.contains("checkbox")) {
+		const todoElement = targetElement.parentElement.parentElement;
+
+		if (targetElement.checked == false) {
+			for (let index = 0; index < todos.completed.length; index++) {
+				let todo = todos.completed[index];
+
+				if (todo.id == todoElement.id) {
+					let todoItem = todos.completed.splice(index, 1)[0];
+					todoItem.status = "ongoing";
+					UI.addTodoToOngoing(todoItem);
+					UI.removeUncheckedTodo(todoItem);
+					let updateTodos = { ...todos, ongoing: [...todos.ongoing, todoItem] };
+					localStorage.setItem("todos", JSON.stringify(updateTodos));
+				}
+			}
+		}
+	}
 });
 
 // To add todo to completed
