@@ -199,6 +199,17 @@ class UI {
 
 		localStorage.setItem("todos", JSON.stringify(todos));
 	}
+
+	static showMessage(className, message) {
+		const alertBg = document.querySelector(".alert-bg");
+		const alertEl = document.createElement("p");
+		alertEl.textContent = message;
+		alertEl.className = `alert ${className}`;
+		alertBg.appendChild(alertEl);
+		setTimeout(() => {
+			alertEl.remove();
+		}, 3000);
+	}
 }
 
 class Store {
@@ -245,6 +256,9 @@ todoForm.addEventListener("submit", (e) => {
 		Store.storeTodoToOngoing(todo);
 		UI.addTodoToOngoing(todo);
 
+		// Add alert success
+		UI.showMessage("alert-success", "Todo added successfully.");
+
 		// clear input field after submiting
 		todoInput.value = "";
 	}
@@ -269,6 +283,9 @@ ongoingTodos.addEventListener("click", (e) => {
 					todoItem.status = "completed";
 					UI.removeCheckedTodo(todoItem);
 					UI.addTodoToCompleted(todoItem);
+
+					// Add alert success
+					UI.showMessage("alert-success", "Todo successfully completed.");
 					Store.storeTodoToCompleted(todoItem, todos);
 					break;
 				}
@@ -280,6 +297,9 @@ ongoingTodos.addEventListener("click", (e) => {
 		const todo = targetElement.parentElement.parentElement;
 		UI.removeTodoFromOngoing(todo.id);
 		todo.remove();
+
+		// Add alert success
+		UI.showMessage("alert-danger", "Todo deleted successfully.");
 	}
 });
 
@@ -298,6 +318,9 @@ completedTodos.addEventListener("click", (e) => {
 					todoItem.status = "ongoing";
 					UI.addTodoToOngoing(todoItem);
 					UI.removeUncheckedTodo(todoItem);
+
+					// Add alert success
+					UI.showMessage("alert-success", "Completed Todo is undone.");
 					let updateTodos = { ...todos, ongoing: [...todos.ongoing, todoItem] };
 					localStorage.setItem("todos", JSON.stringify(updateTodos));
 				}
@@ -309,5 +332,8 @@ completedTodos.addEventListener("click", (e) => {
 		const todo = targetElement.parentElement.parentElement;
 		UI.removeTodoFromCompleted(todo.id);
 		todo.remove();
+
+		// Add alert success
+		UI.showMessage("alert-danger", "Todo deleted successfully.");
 	}
 });
