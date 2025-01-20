@@ -76,7 +76,12 @@ class UI {
 					</button>
 				</div>
 		`;
-		ongoingTodos.appendChild(todoElement);
+		if (ongoingTodos.length == 0) {
+			ongoingTodos.appendChild(todoElement);
+		} else {
+			const firstChild = ongoingTodos.firstElementChild;
+			ongoingTodos.insertBefore(todoElement, firstChild);
+		}
 	}
 
 	static addTodoToCompleted(todo) {
@@ -140,7 +145,12 @@ class UI {
 					</button>
 				</div>
 		`;
-		completedTodos.appendChild(todoElement);
+		if (completedTodos.length == 0) {
+			completedTodos.appendChild(todoElement);
+		} else {
+			const firstChild = completedTodos.firstElementChild;
+			completedTodos.insertBefore(todoElement, firstChild);
+		}
 	}
 
 	static getTodo() {

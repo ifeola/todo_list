@@ -78,8 +78,31 @@ h4 {
 }
 
 .todos {
-	display: grid;
-	gap: 1rem;
+	block-size: 100%;
+	max-block-size: 720px;
+	overflow-y: auto;
+	padding-inline-end: 0.5rem;
+	padding-block: 0.5rem;
+	scrollbar-width: thin;
+	scrollbar-track-color: #00b93e;
+}
+
+.todos .todo + .todo {
+	margin-block-start: 0.75rem;
+}
+
+.todos::-webkit-scrollbar {
+	width: 10px;
+}
+
+.todos::-webkit-scrollbar-track {
+	background: red;
+	border-radius: 50%;
+}
+
+.todos::-webkit-scrollbar-thumb {
+	background: rgb(255, 235, 235);
+	border-radius: 50%;
 }
 
 #search__label {
@@ -107,17 +130,57 @@ h4 {
 }
 
 .todo {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
 	min-block-size: 4rem;
 	padding-inline: 1rem;
+	padding-block: 0.5rem;
 	border-radius: 6px;
 	background-color: hsla(221, 100%, 94%, 0.119);
 }
 
+.todo__top {
+	inline-size: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.todo__bottom {
+	margin-top: 0.25rem;
+}
+
+.edit__form {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 0.25rem;
+}
+
+.edit__form input {
+	block-size: 1.875rem;
+	min-inline-size: 100%;
+	outline: 0;
+	color: #ffffff;
+	font-size: 1rem;
+	border-radius: 6px;
+	background-color: hsla(221, 100%, 94%, 0.092);
+	border: 1px solid hsla(221, 100%, 94%, 0.24);
+}
+
+.edit__form button {
+	max-inline-size: 10rem;
+	padding-inline: 1rem;
+	border: 0;
+	border-radius: 6px;
+	background-color: #1057ff;
+	color: #ffffff;
+	font-size: 0.875rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
 .todo input[type="checkbox"] {
 	appearance: none;
+	visibility: hidden;
+	display: none;
 }
 
 .todo input[type="checkbox"] ~ svg {
