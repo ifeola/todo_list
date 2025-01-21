@@ -22,11 +22,28 @@ svg {
 	fill: hsla(221, 100%, 90%, 0.726);
 }
 
+header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	block-size: 8rem;
+	inline-size: 100%;
+	background-color: #0d1017;
+	z-index: 100;
+}
+
+header > div {
+	inline-size: 100%;
+}
+
 .container {
 	inline-size: min(100%, 920px);
 	block-size: 100%;
 	margin: 0 auto;
-	padding: 1rem;
+	padding-block-start: 8rem;
 }
 
 .todo__bg {
@@ -130,9 +147,7 @@ h4 {
 }
 
 .todo {
-	min-block-size: 4rem;
-	padding-inline: 1rem;
-	padding-block: 0.5rem;
+	padding: 1rem;
 	border-radius: 6px;
 	background-color: hsla(221, 100%, 94%, 0.119);
 }
@@ -146,6 +161,11 @@ h4 {
 
 .todo__bottom {
 	margin-top: 0.25rem;
+	display: none;
+}
+
+.todo__bottom.active {
+	display: block;
 }
 
 .edit__form {
@@ -156,7 +176,7 @@ h4 {
 
 .edit__form input {
 	block-size: 1.875rem;
-	min-inline-size: 100%;
+	inline-size: 100%;
 	outline: 0;
 	color: #ffffff;
 	font-size: 1rem;
@@ -264,7 +284,7 @@ h4 {
 	border: none;
 	outline: none;
 	cursor: pointer;
-	position: absolute;
+	position: fixed;
 	bottom: 1rem;
 	right: 1rem;
 }
