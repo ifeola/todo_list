@@ -345,22 +345,19 @@ ongoingTodos.addEventListener("click", (e) => {
 		editForm.addEventListener("submit", (e) => {
 			e.preventDefault();
 			todoTitle.textContent = editInput.value;
+
 			let todos = Store.getTodoList();
 			for (let i = 0; i < todos.ongoing.length; i++) {
 				let todoData = todos.ongoing[i];
 				if (todo.id == todoData.id) {
 					todoData.title = editInput.value;
-					todos = {
-						...todos,
-						ongoing: [...todos.ongoing, todoData],
-					};
 					localStorage.setItem("todos", JSON.stringify(todos));
 					editInput.value = "";
 					editFormBg.classList.remove("active");
 				}
 			}
 		});
-		// UI.editTodoContent(todoTitle, targetElement);
+		UI.editTodoContent(todoTitle, targetElement);
 	}
 });
 

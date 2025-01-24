@@ -33,6 +33,7 @@ header {
 	inline-size: 100%;
 	background-color: #0d1017;
 	z-index: 100;
+	padding-inline: 0.675rem;
 }
 
 header > div {
@@ -44,6 +45,7 @@ header > div {
 	block-size: 100%;
 	margin: 0 auto;
 	padding-block-start: 8rem;
+	padding-inline: 0.675rem;
 }
 
 .todo__bg {
@@ -177,6 +179,7 @@ h4 {
 .edit__form input {
 	block-size: 1.875rem;
 	inline-size: 100%;
+	padding: 0.325rem;
 	outline: 0;
 	color: #ffffff;
 	font-size: 1rem;
