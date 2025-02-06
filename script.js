@@ -237,7 +237,7 @@ class UI {
 		}, 2000);
 	}
 
-	static editTodoContent(todoTitle, targetElement) {}
+	// static editTodoContent(todoTitle, targetElement) {}
 }
 
 class Store {
@@ -335,7 +335,6 @@ ongoingTodos.addEventListener("click", (e) => {
 		let todoTitle = todo.querySelector(".todo__title");
 		let editFormBg =
 			targetElement.parentElement.parentElement.nextElementSibling;
-		console.log(todo);
 
 		editFormBg.classList.add("active");
 		let editInput = editFormBg.querySelector(".edit__input");
@@ -351,13 +350,13 @@ ongoingTodos.addEventListener("click", (e) => {
 				let todoData = todos.ongoing[i];
 				if (todo.id == todoData.id) {
 					todoData.title = editInput.value;
-					localStorage.setItem("todos", JSON.stringify(todos));
-					editInput.value = "";
-					editFormBg.classList.remove("active");
 				}
 			}
+			localStorage.setItem("todos", JSON.stringify(todos));
+			editInput.value = "";
+			editFormBg.classList.remove("active");
 		});
-		UI.editTodoContent(todoTitle, targetElement);
+		// UI.editTodoContent(todoTitle, targetElement);
 	}
 });
 
