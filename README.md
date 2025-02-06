@@ -49,14 +49,10 @@ Contains the styles for the application, including layout, colors, and typograph
 
 The main HTML file that includes the structure of the to-do list application.
 
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
 ## Contact
 
-For any questions or feedback, please contact [your-email@example.com](mailto:your-email@example.com).
+For any questions or feedback, please contact [arogunmasaabayomi95@gmail.com](mailto:arogunmasaabayomi95@gmail.com).
